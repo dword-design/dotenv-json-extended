@@ -1,0 +1,29 @@
+{
+  "name": "@dword-design/dotenv",
+  "version": "1.0.0",
+  "description": "Custom dotenv wrapper with support for parent folders and schema validation",
+  "repository": "dword-design/dotenv",
+  "license": "MIT",
+  "author": "Sebastian Landwehr <info@dword-design.de>",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "prepublishOnly": "base build",
+    "start": "base start",
+    "test": "base test"
+  },
+  "dependencies": {
+    "dotenv-extended": "^2.7.1",
+    "find-up": "^4.1.0"
+  },
+  "devDependencies": {
+    "@dword-design/base": "^4.0.5",
+    "@dword-design/functions": "^2.7.0",
+    "expect": "^25.1.0",
+    "fs-extra": "^8.1.0",
+    "output-files": "^1.1.12",
+    "with-local-tmp-dir": "^2.2.5"
+  }
+}
