@@ -5,13 +5,14 @@
   "repository": "dword-design/dotenv",
   "license": "MIT",
   "author": "Sebastian Landwehr <info@dword-design.de>",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
   "scripts": {
-    "prepublishOnly": "base build",
-    "start": "base start",
+    "depgraph": "base depgraph",
+    "prepare": "base prepare",
+    "prepublishOnly": "base prepublishOnly",
     "test": "base test"
   },
   "dependencies": {
@@ -19,7 +20,7 @@
     "find-up": "^4.1.0"
   },
   "devDependencies": {
-    "@dword-design/base": "^4.0.5",
+    "@dword-design/base": "^5.0.0",
     "@dword-design/functions": "^2.7.0",
     "expect": "^25.1.0",
     "fs-extra": "^8.1.0",
