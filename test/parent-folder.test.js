@@ -1,6 +1,5 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
 import dotenv from '@dword-design/dotenv'
-import expect from 'expect'
 import outputFiles from 'output-files'
 import { omit, endent } from '@dword-design/functions'
 
