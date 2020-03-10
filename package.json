@@ -29,5 +29,8 @@
     "fs-extra": "^8.1.0",
     "output-files": "^1.1.12",
     "with-local-tmp-dir": "^2.2.5"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
