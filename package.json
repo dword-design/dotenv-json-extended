@@ -1,6 +1,6 @@
 {
   "name": "@dword-design/dotenv-json-extended",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Custom dotenv wrapper with support for parent folders and schema validation",
   "repository": "dword-design/dotenv-json-extended",
   "license": "MIT",
