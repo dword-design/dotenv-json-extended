@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/dword-design/dotenv-json-extended/compare/v1.1.0...v1.1.1) (2020-03-10)
+
+
+### Bug Fixes
+
+* stringify objects ([676bd22](https://github.com/dword-design/dotenv-json-extended/commit/676bd22183a18494146d3ef71889e827414207d2))
+
 # [1.1.0](https://github.com/dword-design/dotenv-json-extended/compare/v1.0.3...v1.1.0) (2020-03-10)
 
 
