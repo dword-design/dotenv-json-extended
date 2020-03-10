@@ -1,68 +1,72 @@
 import withLocalTmpDir from 'with-local-tmp-dir'
-import dotenv from '@dword-design/dotenv'
+import dotenv from '@dword-design/dotenv-json-extended'
 import outputFiles from 'output-files'
 import { outputFile } from 'fs-extra'
-import { endent, omit } from '@dword-design/functions'
+import { omit } from '@dword-design/functions'
 
 export default {
-  'defaults with env': () => withLocalTmpDir(async () => {
-    delete process.env.FOO
-    await outputFiles({
-      '.env': 'FOO=baz',
-      '.env.defaults': 'FOO=bar',
-      '.env.schema': 'FOO=',
-    })
-    dotenv.config()
-    expect(process.env.FOO).toEqual('baz')
-  }),
-  defaults: () => withLocalTmpDir(async () => {
-    delete process.env.FOO
-    await outputFiles({
-      '.env.defaults': 'FOO=bar',
-      '.env.schema': 'FOO=',
-    })
-    dotenv.config()
-    expect(process.env.FOO).toEqual('bar')
-  }),
-  'dotenv extended options': () => withLocalTmpDir(async () => {
+  'existing variable': () => withLocalTmpDir(async () => {
     process.env.FOO = 'bar'
     await outputFiles({
-      '.env': 'FOO=baz',
-      '.env.schema': 'FOO=',
-    })
-    dotenv.config({ overrideProcessEnv: true })
-    expect(process.env.FOO).toEqual('baz')
-  }),
-  empty: () => withLocalTmpDir(() => dotenv.config()),
-  env: () => withLocalTmpDir(async () => {
-    delete process.env.FOO
-    await outputFiles({
-      '.env': 'FOO=bar',
-      '.env.schema': 'FOO=',
+      '.env.json': { foo: 'baz' } |> JSON.stringify,
+      '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
     })
     dotenv.config()
     expect(process.env.FOO).toEqual('bar')
   }),
-  'extra variable': () => withLocalTmpDir(async () => {
+  empty: () => withLocalTmpDir(() => dotenv.config()),
+  valid: () => withLocalTmpDir(async () => {
     delete process.env.FOO
-    await outputFile('.env', 'FOO=bar')
-    expect(dotenv.config).toThrow('EXTRA CONFIG VALUES: FOO')
+    await outputFiles({
+      '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
+      '.env.json': { foo: 'bar' } |> JSON.stringify,
+    })
+    dotenv.config()
+    expect(process.env.FOO).toEqual('bar')
   }),
-  'missing variable': () => withLocalTmpDir(async () => {
+  'schema: defaults overwritten': () => withLocalTmpDir(async () => {
     delete process.env.FOO
-    await outputFile('.env.schema', 'FOO=')
-    expect(dotenv.config).toThrow('MISSING CONFIG VALUES: FOO')
+    await outputFiles({
+      '.env.json': { foo: 'baz' } |> JSON.stringify,
+      '.env.schema.json': { foo: { type: 'string', default: 'bar' } } |> JSON.stringify,
+    })
+    dotenv.config()
+    expect(process.env.FOO).toEqual('baz')
+  }),
+  'schema: defaults': () => withLocalTmpDir(async () => {
+    delete process.env.FOO
+    await outputFile('.env.schema.json', { foo: { type: 'string', default: 'bar' } } |> JSON.stringify)
+    dotenv.config()
+    expect(process.env.FOO).toEqual('bar')
+  }),
+  'schema: extra variable': () => withLocalTmpDir(async () => {
+    delete process.env.FOO
+    await outputFile('.env.json', { foo: 'bar' } |> JSON.stringify)
+    expect(dotenv.config).toThrow('dotenv: data should NOT have additional properties')
+  }),
+  'schema: missing variable': () => withLocalTmpDir(async () => {
+    delete process.env.FOO
+    await outputFile('.env.schema.json', { foo: { type: 'string' } } |> JSON.stringify)
+    expect(dotenv.config).toThrow('dotenv: data should have required property \'foo\'')
+  }),
+  'schema: wrong type': () => withLocalTmpDir(async () => {
+    delete process.env.FOO
+    await outputFiles({
+      '.env.json': { foo: 1 } |> JSON.stringify,
+      '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
+    })
+    expect(dotenv.config).toThrow('dotenv: data.foo should be string')
   }),
   'parent folder': () => withLocalTmpDir(async () => {
     process.env = process.env |> omit(['FOO', 'BAR'])
     await outputFiles({
       inner: {},
-      '.env': 'FOO=test',
-      '.env.defaults': 'BAR=test2',
-      '.env.schema': endent`
-        FOO=
-        BAR=
-      `,
+      '.env.json': { foo: 'test' } |> JSON.stringify,
+      '.env.schema.json': {
+        foo: { type: 'string' },
+        bar: { type: 'string', default: 'test2' },
+      }
+        |> JSON.stringify,
     })
     process.chdir('inner')
     dotenv.config()
