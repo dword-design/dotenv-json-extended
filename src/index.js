@@ -30,7 +30,9 @@ export default {
       |> forIn((value, key) => {
         const envKey = key |> constantCase
         if (process.env[envKey] === undefined) {
-          process.env[envKey] = value
+          process.env[envKey] = typeof value === 'object'
+            ? JSON.stringify(value)
+            : value
         }
       })
   },

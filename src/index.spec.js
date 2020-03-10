@@ -24,6 +24,16 @@ export default {
     dotenv.config()
     expect(process.env.FOO).toEqual('bar')
   }),
+  'inner json': () => withLocalTmpDir(async () => {
+    delete process.env.FOO
+    await outputFiles({
+      '.env.schema.json': { foo: { type: 'object' } } |> JSON.stringify,
+      '.env.json': { foo: { bar: 'baz' } } |> JSON.stringify,
+    })
+    dotenv.config()
+    expect(typeof process.env.FOO).toEqual('string')
+    expect(process.env.FOO |> JSON.parse).toEqual({ bar: 'baz' })
+  }),
   'schema: defaults overwritten': () => withLocalTmpDir(async () => {
     delete process.env.FOO
     await outputFiles({
