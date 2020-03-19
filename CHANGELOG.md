@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/dword-design/dotenv-json-extended/compare/v1.1.1...v1.1.2) (2020-03-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fs-extra to v9 ([9ac9aca](https://github.com/dword-design/dotenv-json-extended/commit/9ac9acaae6a1181aeacaee7ef35a8a5cfe2f14c6))
+
 ## [1.1.1](https://github.com/dword-design/dotenv-json-extended/compare/v1.1.0...v1.1.1) (2020-03-10)
 
 
