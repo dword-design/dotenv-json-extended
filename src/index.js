@@ -1,8 +1,9 @@
 import findUp from 'find-up'
 import safeRequire from 'safe-require'
 import { constantCase } from 'constant-case'
-import { keys, zipObject, map, identity, pickBy, mapValues, mapKeys } from '@dword-design/functions'
+import { keys, identity, pickBy, mapValues, mapKeys } from '@dword-design/functions'
 import Ajv from 'ajv'
+import parseValue from './parse-value'
 
 const ajv = new Ajv({ useDefaults: true })
 
@@ -12,20 +13,19 @@ export default {
     const schemaPath = findUp.sync('.env.schema.json')
 
     const properties = schemaPath !== undefined ? safeRequire(schemaPath) : {}
-    const propertyNames = properties |> keys
     const env = {
       ...envPath !== undefined ? safeRequire(envPath) : {},
-      ...zipObject(
-        propertyNames,
-        propertyNames |> map(propertyName => process.env[propertyName |> constantCase]),
-      )
+      ...properties
+        |> mapValues(({ type }, name) =>
+          process.env[name |> constantCase] |> parseValue(type),
+        )
         |> pickBy(identity),
     }
     
     const schema = {
       type: 'object',
       properties,
-      required: propertyNames,
+      required: properties |> keys,
       additionalProperties: false,
     }
 
@@ -35,12 +35,12 @@ export default {
         throw new Error(`dotenv: ${ajv.errorsText()}`)
       }
     }
-    
+
     Object.assign(
       process.env,
       env
-        |> mapValues(value => typeof value === 'object' ? (value |> JSON.stringify) : value)
-        |> mapKeys((value, key) => key |> constantCase),
+        |> mapKeys((value, key) => key |> constantCase)
+        |> mapValues(value => typeof value === 'object' ? (value |> JSON.stringify) : value),
     )
   },
 }
