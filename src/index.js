@@ -1,7 +1,7 @@
 import findUp from 'find-up'
 import safeRequire from 'safe-require'
 import { constantCase } from 'constant-case'
-import { forIn, keys } from '@dword-design/functions'
+import { keys, zipObject, map, identity, pickBy, mapValues, mapKeys } from '@dword-design/functions'
 import Ajv from 'ajv'
 
 const ajv = new Ajv({ useDefaults: true })
@@ -11,12 +11,21 @@ export default {
     const envPath = findUp.sync('.env.json')
     const schemaPath = findUp.sync('.env.schema.json')
 
-    const env = envPath !== undefined ? safeRequire(envPath) : {}
-    const loadedSchema = schemaPath !== undefined ? safeRequire(schemaPath) : {}
+    const properties = schemaPath !== undefined ? safeRequire(schemaPath) : {}
+    const propertyNames = properties |> keys
+    const env = {
+      ...envPath !== undefined ? safeRequire(envPath) : {},
+      ...zipObject(
+        propertyNames,
+        propertyNames |> map(propertyName => process.env[propertyName |> constantCase]),
+      )
+        |> pickBy(identity),
+    }
+    
     const schema = {
       type: 'object',
-      properties: loadedSchema,
-      required: loadedSchema |> keys,
+      properties,
+      required: propertyNames,
       additionalProperties: false,
     }
 
@@ -26,14 +35,12 @@ export default {
         throw new Error(`dotenv: ${ajv.errorsText()}`)
       }
     }
-    env
-      |> forIn((value, key) => {
-        const envKey = key |> constantCase
-        if (process.env[envKey] === undefined) {
-          process.env[envKey] = typeof value === 'object'
-            ? JSON.stringify(value)
-            : value
-        }
-      })
+    
+    Object.assign(
+      process.env,
+      env
+        |> mapValues(value => typeof value === 'object' ? (value |> JSON.stringify) : value)
+        |> mapKeys((value, key) => key |> constantCase),
+    )
   },
 }

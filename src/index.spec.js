@@ -14,6 +14,19 @@ export default {
     dotenv.config()
     expect(process.env.FOO).toEqual('bar')
   }),
+  'other existing variable': () => withLocalTmpDir(async () => {
+    process.env.FOO = 'bar'
+    process.env.BAR = 'bar'
+    await outputFile('.env.schema.json', { foo: { type: 'string' } } |> JSON.stringify)
+    dotenv.config()
+    expect(process.env.FOO).toEqual('bar')
+  }),
+  'existing variable without .env.json': () => withLocalTmpDir(async () => {
+    process.env.FOO = 'bar'
+    await outputFile('.env.schema.json', { foo: { type: 'string' } } |> JSON.stringify)
+    dotenv.config()
+    expect(process.env.FOO).toEqual('bar')
+  }),
   empty: () => withLocalTmpDir(() => dotenv.config()),
   valid: () => withLocalTmpDir(async () => {
     delete process.env.FOO
