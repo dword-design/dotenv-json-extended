@@ -1,5 +1,4 @@
 import findUp from 'find-up'
-import safeRequire from 'safe-require'
 import { constantCase } from 'constant-case'
 import { keys, identity, pickBy, mapValues, mapKeys } from '@dword-design/functions'
 import Ajv from 'ajv'
@@ -12,13 +11,17 @@ export default {
     const envPath = findUp.sync('.env.json')
     const schemaPath = findUp.sync('.env.schema.json')
 
-    const properties = schemaPath !== undefined ? safeRequire(schemaPath) : {}
+    const properties = schemaPath !== undefined ? require(schemaPath) : {}
     const env = {
-      ...envPath !== undefined ? safeRequire(envPath) : {},
+      ...envPath !== undefined ? require(envPath) : {},
       ...properties
-        |> mapValues(({ type }, name) =>
-          process.env[name |> constantCase] |> parseValue(type),
-        )
+        |> mapValues(({ type }, name) => {
+          try {
+            return process.env[name |> constantCase] |> parseValue(type)
+          } catch ({ message }) {
+            throw new Error(`Error at data.${name}: ${message}`)
+          }
+        })
         |> pickBy(identity),
     }
     

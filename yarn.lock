@@ -3237,7 +3237,6 @@ chardet@^0.7.0:
 
 chdir@dword-design/node-chdir#fork:
   version "0.0.0"
-  uid "7eaa8592e576b0f9d6d3ce699b02b04dcd8a2c16"
   resolved "https://codeload.github.com/dword-design/node-chdir/tar.gz/7eaa8592e576b0f9d6d3ce699b02b04dcd8a2c16"
 
 check-types@^8.0.3:
@@ -4861,7 +4860,6 @@ delegates@^1.0.0:
 
 depcheck@dword-design/depcheck#fork:
   version "0.0.1"
-  uid "8a9eb41006c2c6f9cbd79e4e68bf265e1c1df1dc"
   resolved "https://codeload.github.com/dword-design/depcheck/tar.gz/8a9eb41006c2c6f9cbd79e4e68bf265e1c1df1dc"
   dependencies:
     "@babel/parser" "^7.8.4"
@@ -5381,7 +5379,6 @@ eslint-module-utils@^2.4.1:
 
 eslint-plugin-import@dword-design/eslint-plugin-import#fork:
   version "2.20.1"
-  uid "092878bcc1f9b7ef80ca755bfd77e13b15aa9ef3"
   resolved "https://codeload.github.com/dword-design/eslint-plugin-import/tar.gz/092878bcc1f9b7ef80ca755bfd77e13b15aa9ef3"
   dependencies:
     array-includes "^3.0.3"
@@ -7901,7 +7898,6 @@ jsonparse@^1.2.0:
 
 jsontosass@dword-design/jsontosass#fork:
   version "0.1.1"
-  uid a63dc485c9bbb76c2ef4c2128f5e11a70394b68b
   resolved "https://codeload.github.com/dword-design/jsontosass/tar.gz/a63dc485c9bbb76c2ef4c2128f5e11a70394b68b"
   dependencies:
     extend "^3.0.0"
@@ -11872,13 +11868,8 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-safe-require@dword-design/node-safe-require:
-  version "1.0.3"
-  resolved "https://codeload.github.com/dword-design/node-safe-require/tar.gz/81523ffcbc6e31e9e68fdc6b716cff638c69ac64"
-
 safe-require@dword-design/node-safe-require#fork:
   version "1.0.3"
-  uid "53682cf7aa25d784c6278f8ccbc9986ad0dd5f38"
   resolved "https://codeload.github.com/dword-design/node-safe-require/tar.gz/53682cf7aa25d784c6278f8ccbc9986ad0dd5f38"
 
 "safer-buffer@>= 2.1.2 < 3", safer-buffer@^2.0.2, safer-buffer@^2.1.0, safer-buffer@~2.1.0:
@@ -13726,7 +13717,6 @@ wcwidth@^1.0.0:
 
 webpack-atomizer-loader@dword-design/webpack-atomizer-loader#fork:
   version "1.0.2"
-  uid "7fd9e8d7eab26934de91eac026cf37589234772e"
   resolved "https://codeload.github.com/dword-design/webpack-atomizer-loader/tar.gz/7fd9e8d7eab26934de91eac026cf37589234772e"
   dependencies:
     atomizer "^3.5.1"

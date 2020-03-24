@@ -21,6 +21,16 @@ export default {
     } |> JSON.stringify)
     self.config()
   }),
+  'existing variable invalid json': () => withLocalTmpDir(async () => {
+    process.env.FOO = 'foo'
+    await outputFile('.env.schema.json', {
+      foo: {
+        type: 'object',
+        properties: { bar: { type: 'string' } },
+      },
+    } |> JSON.stringify)
+    expect(self.config).toThrow(new Error('Error at data.foo: Unexpected token o in JSON at position 1'))
+  }),
   'other existing variable': () => withLocalTmpDir(async () => {
     process.env.FOO = 'bar'
     process.env.BAR = 'bar'
