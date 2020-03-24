@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/dword-design/dotenv-json-extended/compare/v1.1.2...v1.1.3) (2020-03-24)
+
+
+### Bug Fixes
+
+* respect existing variables ([7d5c49e](https://github.com/dword-design/dotenv-json-extended/commit/7d5c49e161171adcf37d56b50a6cccec17606c70))
+
 ## [1.1.2](https://github.com/dword-design/dotenv-json-extended/compare/v1.1.1...v1.1.2) (2020-03-19)
 
 
