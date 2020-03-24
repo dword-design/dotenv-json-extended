@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/dword-design/dotenv-json-extended/compare/v1.1.4...v1.2.0) (2020-03-24)
+
+
+### Features
+
+* more meaningful error message ([365f9e1](https://github.com/dword-design/dotenv-json-extended/commit/365f9e1393019b422ce12a00de42367379b071b3))
+
 ## [1.1.4](https://github.com/dword-design/dotenv-json-extended/compare/v1.1.3...v1.1.4) (2020-03-24)
 
 
