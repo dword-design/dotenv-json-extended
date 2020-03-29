@@ -10,12 +10,8 @@ export default {
   config: () => {
     const envPath = findUp.sync(process.env.NODE_ENV === 'test' ? '.test.env.json' : '.env.json')
     const schemaPath = findUp.sync('.env.schema.json')
-    const testSchemaPath = process.env.NODE_ENV === 'test' ? findUp.sync('.test.env.schema.json') : undefined
 
-    const properties = {
-      ...schemaPath ? require(schemaPath) : {},
-      ...testSchemaPath ? require(testSchemaPath) : {},
-    }
+    const properties = schemaPath ? require(schemaPath) : {}
 
     const env = {
       ...envPath !== undefined ? require(envPath) : {},

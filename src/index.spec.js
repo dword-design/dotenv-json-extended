@@ -95,26 +95,6 @@ export default {
     })
     expect(self.config).toThrow('dotenv: data should have required property \'foo\'')
   }),
-  'test env and .test.env.schema.json': () => withLocalTmpDir(async () => {
-    process.env.NODE_ENV = 'test'
-    await outputFiles({
-      '.test.env.json': { foo: 'bar' } |> JSON.stringify,
-      '.test.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
-    })
-    self.config()
-    expect(process.env.FOO).toEqual('bar')
-  }),
-  'test env and both .env.schema.json and .test.env.schema.json': () => withLocalTmpDir(async () => {
-    process.env.NODE_ENV = 'test'
-    await outputFiles({
-      '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
-      '.test.env.json': { foo: 'bar', bar: 'baz' } |> JSON.stringify,
-      '.test.env.schema.json': { bar: { type: 'string' } } |> JSON.stringify,
-    })
-    self.config()
-    expect(process.env.FOO).toEqual('bar')
-    expect(process.env.BAR).toEqual('baz')
-  }),
   'schema: defaults overwritten': () => withLocalTmpDir(async () => {
     delete process.env.FOO
     await outputFiles({
