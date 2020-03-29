@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/dword-design/dotenv-json-extended/compare/v1.2.0...v1.3.0) (2020-03-29)
+
+
+### Features
+
+* add test env support ([f271036](https://github.com/dword-design/dotenv-json-extended/commit/f2710365ef4ff27dffda9157f93f325b23a850ef))
+
 # [1.2.0](https://github.com/dword-design/dotenv-json-extended/compare/v1.1.4...v1.2.0) (2020-03-24)
 
 
