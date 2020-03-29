@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.0...v1.3.1) (2020-03-29)
+
+
+### Bug Fixes
+
+* remove test schema again ([2588ac5](https://github.com/dword-design/dotenv-json-extended/commit/2588ac5e5722018eaa5c4dd38c2329b97d0e0fbd))
+
 # [1.3.0](https://github.com/dword-design/dotenv-json-extended/compare/v1.2.0...v1.3.0) (2020-03-29)
 
 
