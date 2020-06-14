@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.2...v1.3.3) (2020-06-14)
+
+
+### Bug Fixes
+
+* override existing env variables so we do not overwrite with serialized strings ([cbc8cc5](https://github.com/dword-design/dotenv-json-extended/commit/cbc8cc5482a07dc2f4e142d71c56f674bfc10616))
+
 ## [1.3.2](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.1...v1.3.2) (2020-03-30)
 
 
