@@ -33,13 +33,13 @@ export default {
           }
         })
         |> pickBy(identity)),
-      ...(envPath !== undefined ? readJsonSync(envPath) : {}),
+      ...(envPath && readJsonSync(envPath)),
     }
     const schema = {
-      type: 'object',
+      additionalProperties: false,
       properties,
       required: properties |> keys,
-      additionalProperties: false,
+      type: 'object',
     }
     if (schema !== undefined) {
       const valid = ajv.validate(schema, env)
