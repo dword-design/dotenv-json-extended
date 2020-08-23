@@ -1,3 +1,11 @@
+## [1.3.4](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.3...v1.3.4) (2020-08-23)
+
+
+### Bug Fixes
+
+* build files ([c9095ba](https://github.com/dword-design/dotenv-json-extended/commit/c9095ba7f86cc7255041a2178a833b4acb87fe15))
+* **deps:** update dependency find-up to v5 ([5fc9276](https://github.com/dword-design/dotenv-json-extended/commit/5fc92762eb9746609cf0400722382298140f58a6))
+
 ## [1.3.3](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.2...v1.3.3) (2020-06-14)
 
 
