@@ -1,3 +1,10 @@
+## [1.3.6](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.5...v1.3.6) (2021-02-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ajv to v7 ([#13](https://github.com/dword-design/dotenv-json-extended/issues/13)) ([c2b3265](https://github.com/dword-design/dotenv-json-extended/commit/c2b3265a990b9ca20208eba1d33e68918ff7d22e))
+
 ## [1.3.5](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.4...v1.3.5) (2020-12-02)
 
 
