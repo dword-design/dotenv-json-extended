@@ -179,7 +179,7 @@ export default {
         '.env.json': { foo: 1 } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
       })
-      expect(self.config).toThrow('dotenv: data.foo should be string')
+      expect(self.config).toThrow('dotenv: data/foo should be string')
     }),
   'test env': () =>
     withLocalTmpDir(async () => {
