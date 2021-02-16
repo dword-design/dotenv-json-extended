@@ -1,3 +1,10 @@
+## [1.3.7](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.6...v1.3.7) (2021-02-16)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/base to v7 ([#14](https://github.com/dword-design/dotenv-json-extended/issues/14)) ([c0c6a4f](https://github.com/dword-design/dotenv-json-extended/commit/c0c6a4f965b27e711486432851c215a5a76711c0))
+
 ## [1.3.6](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.5...v1.3.6) (2021-02-15)
 
 
