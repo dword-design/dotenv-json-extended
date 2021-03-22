@@ -43,6 +43,26 @@ export default {
       self.config()
       expect(process.env.FOO).toEqual('bar')
     }),
+  'existing variable in test env': () =>
+    withLocalTmpDir(async () => {
+      process.env.NODE_ENV = 'test'
+      process.env.TEST_FOO = 'bar'
+      await outputFiles({
+        '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
+      })
+      self.config()
+    }),
+  'existing variable in test env with .test.env.json': () =>
+    withLocalTmpDir(async () => {
+      process.env.NODE_ENV = 'test'
+      process.env.TEST_FOO = 'bar'
+      await outputFiles({
+        '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
+        '.test.env.json': { foo: 'bar2' } |> JSON.stringify,
+      })
+      self.config()
+      expect(process.env.FOO).toEqual('bar2')
+    }),
   'existing variable invalid json': () =>
     withLocalTmpDir(async () => {
       process.env.FOO = 'foo'
@@ -95,7 +115,6 @@ export default {
     }),
   'inner json': () =>
     withLocalTmpDir(async () => {
-      delete process.env.FOO
       await outputFiles({
         '.env.json': { foo: { bar: 'baz' } } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'object' } } |> JSON.stringify,
@@ -134,7 +153,6 @@ export default {
     }),
   'schema: defaults': () =>
     withLocalTmpDir(async () => {
-      delete process.env.FOO
       await outputFile(
         '.env.schema.json',
         { foo: { default: 'bar', type: 'string' } } |> JSON.stringify
@@ -144,7 +162,6 @@ export default {
     }),
   'schema: defaults overwritten': () =>
     withLocalTmpDir(async () => {
-      delete process.env.FOO
       await outputFiles({
         '.env.json': { foo: 'baz' } |> JSON.stringify,
         '.env.schema.json':
@@ -155,7 +172,6 @@ export default {
     }),
   'schema: extra variable': () =>
     withLocalTmpDir(async () => {
-      delete process.env.FOO
       await outputFile('.env.json', { foo: 'bar' } |> JSON.stringify)
       expect(self.config).toThrow(
         'dotenv: data should NOT have additional properties'
@@ -163,7 +179,6 @@ export default {
     }),
   'schema: missing variable': () =>
     withLocalTmpDir(async () => {
-      delete process.env.FOO
       await outputFile(
         '.env.schema.json',
         { foo: { type: 'string' } } |> JSON.stringify
@@ -174,7 +189,6 @@ export default {
     }),
   'schema: wrong type': () =>
     withLocalTmpDir(async () => {
-      delete process.env.FOO
       await outputFiles({
         '.env.json': { foo: 1 } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
@@ -204,7 +218,6 @@ export default {
     }),
   valid: () =>
     withLocalTmpDir(async () => {
-      delete process.env.FOO
       await outputFiles({
         '.env.json': { foo: 'bar' } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,

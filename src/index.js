@@ -26,7 +26,11 @@ export default {
         |> mapValues((property, name) => {
           try {
             return (
-              process.env[name |> constantCase] |> parseValue(property.type)
+              process.env[
+                `${process.env.NODE_ENV === 'test' ? 'TEST_' : ''}${
+                  name |> constantCase
+                }`
+              ] |> parseValue(property.type)
             )
           } catch (error) {
             throw new Error(`Error at data.${name}: ${error.message}`)
