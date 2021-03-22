@@ -1,3 +1,10 @@
+## [1.3.10](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.9...v1.3.10) (2021-03-22)
+
+
+### Bug Fixes
+
+* allow to inject TEST_ environment variables ([#21](https://github.com/dword-design/dotenv-json-extended/issues/21)) ([9d9c239](https://github.com/dword-design/dotenv-json-extended/commit/9d9c2393f1e7e3661fe02c66c3057c3f4e522991))
+
 ## [1.3.9](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.8...v1.3.9) (2021-03-22)
 
 
