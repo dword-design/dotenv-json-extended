@@ -64,7 +64,7 @@ $ yarn add @dword-design/dotenv-json-extended
 <!-- LICENSE/ -->
 ## Contribute
 
-Are you missing something or want to contribute? Feel free to file an [issue](https://github.com/dword-design/dotenv-json-extended/issues) or [pull request](https://github.com/dword-design/dotenv-json-extended/pulls)! ⚙️
+Are you missing something or want to contribute? Feel free to file an [issue](https://github.com/dword-design/dotenv-json-extended/issues) or a [pull request](https://github.com/dword-design/dotenv-json-extended/pulls)! ⚙️
 
 ## Support
 

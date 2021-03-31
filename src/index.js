@@ -19,8 +19,11 @@ export default {
     const envPath = findUp.sync(
       process.env.NODE_ENV === 'test' ? '.test.env.json' : '.env.json'
     )
+
     const schemaPath = findUp.sync('.env.schema.json')
+
     const properties = schemaPath ? readJsonSync(schemaPath) : {}
+
     const env = {
       ...(properties
         |> mapValues((property, name) => {
@@ -39,6 +42,7 @@ export default {
         |> pickBy(identity)),
       ...(envPath && readJsonSync(envPath)),
     }
+
     const schema = {
       additionalProperties: false,
       properties,
