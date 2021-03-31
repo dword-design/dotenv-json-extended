@@ -174,7 +174,7 @@ export default {
     withLocalTmpDir(async () => {
       await outputFile('.env.json', { foo: 'bar' } |> JSON.stringify)
       expect(self.config).toThrow(
-        'dotenv: data should NOT have additional properties'
+        'dotenv: data must NOT have additional properties'
       )
     }),
   'schema: missing variable': () =>
@@ -184,7 +184,7 @@ export default {
         { foo: { type: 'string' } } |> JSON.stringify
       )
       expect(self.config).toThrow(
-        "dotenv: data should have required property 'foo'"
+        "dotenv: data must have required property 'foo'"
       )
     }),
   'schema: wrong type': () =>
@@ -193,7 +193,7 @@ export default {
         '.env.json': { foo: 1 } |> JSON.stringify,
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
       })
-      expect(self.config).toThrow('dotenv: data/foo should be string')
+      expect(self.config).toThrow('dotenv: data/foo must be string')
     }),
   'test env': () =>
     withLocalTmpDir(async () => {
@@ -213,7 +213,7 @@ export default {
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
       })
       expect(self.config).toThrow(
-        "dotenv: data should have required property 'foo'"
+        "dotenv: data must have required property 'foo'"
       )
     }),
   valid: () =>
