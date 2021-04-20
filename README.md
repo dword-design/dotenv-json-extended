@@ -50,7 +50,7 @@
 <!-- /BADGES -->
 
 <!-- DESCRIPTION/ -->
-Custom dotenv wrapper with support for parent folders and schema validation
+Custom dotenv wrapper with support for parent folders and schema validation.
 <!-- /DESCRIPTION -->
 
 <!-- INSTALL/ -->
