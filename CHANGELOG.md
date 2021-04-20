@@ -1,3 +1,11 @@
+## [1.3.14](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.13...v1.3.14) (2021-04-20)
+
+
+### Bug Fixes
+
+* update config files ([844784c](https://github.com/dword-design/dotenv-json-extended/commit/844784ca603d97360b4bf97e4a6f0883c72163ba))
+* updated package.json[description] ([#31](https://github.com/dword-design/dotenv-json-extended/issues/31)) ([4364d60](https://github.com/dword-design/dotenv-json-extended/commit/4364d605b99963045a551e59e3c2a8f8ea9169da))
+
 ## [1.3.13](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.12...v1.3.13) (2021-04-12)
 
 
