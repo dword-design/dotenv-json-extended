@@ -1,3 +1,10 @@
+## [1.3.15](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.14...v1.3.15) (2021-04-26)
+
+
+### Bug Fixes
+
+* update dependency with-local-tmp-dir to v3 ([#32](https://github.com/dword-design/dotenv-json-extended/issues/32)) ([12b4835](https://github.com/dword-design/dotenv-json-extended/commit/12b48357ea939a8ea696961437bb4492a9c383dc))
+
 ## [1.3.14](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.13...v1.3.14) (2021-04-20)
 
 
