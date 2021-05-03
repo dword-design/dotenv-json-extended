@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.15...v2.0.0) (2021-05-03)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/base to v8 ([#35](https://github.com/dword-design/dotenv-json-extended/issues/35)) ([c989b90](https://github.com/dword-design/dotenv-json-extended/commit/c989b90bb175e1a0c9ce7c89f1ee959dc8b6b9d5))
+
+
+### BREAKING CHANGES
+
+* require Node.js >= 12
+
+Co-authored-by: Renovate Bot <bot@renovateapp.com>
+Co-authored-by: Sebastian Landwehr <info@dword-design.de>
+Co-authored-by: GitHub Actions <actions@github.com>
+
 ## [1.3.15](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.14...v1.3.15) (2021-04-26)
 
 
