@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.1...v2.0.2) (2021-05-04)
+
+
+### Bug Fixes
+
+* update dependency fs-extra to v10 ([#38](https://github.com/dword-design/dotenv-json-extended/issues/38)) ([6da6b31](https://github.com/dword-design/dotenv-json-extended/commit/6da6b31a89bdcea564b32dde3f19946c18eefbee))
+* update dependency with-local-tmp-dir to v4 ([#39](https://github.com/dword-design/dotenv-json-extended/issues/39)) ([7ecec37](https://github.com/dword-design/dotenv-json-extended/commit/7ecec3725a5f68e8665a318e7babb4982f6073dd))
+
 ## [2.0.1](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.0...v2.0.1) (2021-05-04)
 
 
