@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.0...v2.0.1) (2021-05-04)
+
+
+### Bug Fixes
+
+* update dependency @dword-design/functions to v4 ([#36](https://github.com/dword-design/dotenv-json-extended/issues/36)) ([6996610](https://github.com/dword-design/dotenv-json-extended/commit/6996610c3c27f2a3ab35ed0248714df00a074b7c))
+* update dependency output-files to v2 ([#37](https://github.com/dword-design/dotenv-json-extended/issues/37)) ([7cbe12d](https://github.com/dword-design/dotenv-json-extended/commit/7cbe12de29359ceedc8f6f01db49cbb463f2cbab))
+
 # [2.0.0](https://github.com/dword-design/dotenv-json-extended/compare/v1.3.15...v2.0.0) (2021-05-03)
 
 
