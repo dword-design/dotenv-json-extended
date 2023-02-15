@@ -7,22 +7,22 @@ import {
 } from '@dword-design/functions'
 import Ajv from 'ajv'
 import { constantCase } from 'constant-case'
-import findUp from 'find-up'
-import { readJsonSync } from 'fs-extra'
+import { findUpSync } from 'find-up'
+import fs from 'fs-extra'
 
-import parseValue from './parse-value'
+import parseValue from './parse-value.js'
 
 const ajv = new Ajv({ useDefaults: true })
 
 export default {
   config: () => {
-    const envPath = findUp.sync(
+    const envPath = findUpSync(
       process.env.NODE_ENV === 'test' ? '.test.env.json' : '.env.json'
     )
 
-    const schemaPath = findUp.sync('.env.schema.json')
+    const schemaPath = findUpSync('.env.schema.json')
 
-    const properties = schemaPath ? readJsonSync(schemaPath) : {}
+    const properties = schemaPath ? fs.readJsonSync(schemaPath) : {}
 
     const env = {
       ...(properties
@@ -40,7 +40,7 @@ export default {
           }
         })
         |> pickBy(identity)),
-      ...(envPath && readJsonSync(envPath)),
+      ...(envPath && fs.readJsonSync(envPath)),
     }
 
     const schema = {
