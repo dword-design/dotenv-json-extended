@@ -1,4 +1,4 @@
-import self from './parse-value'
+import self from './parse-value.js'
 
 export default {
   works: () => {
