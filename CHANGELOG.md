@@ -1,3 +1,10 @@
+## [2.0.9](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.8...v2.0.9) (2023-02-15)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#85](https://github.com/dword-design/dotenv-json-extended/issues/85)) ([70e1ffc](https://github.com/dword-design/dotenv-json-extended/commit/70e1ffcdcd1194242e45a7b603770e29a104d16b))
+
 ## [2.0.8](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.7...v2.0.8) (2022-01-12)
 
 
