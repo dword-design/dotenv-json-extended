@@ -17,7 +17,7 @@ const ajv = new Ajv({ useDefaults: true })
 export default {
   config: () => {
     const envPath = findUpSync(
-      process.env.NODE_ENV === 'test' ? '.test.env.json' : '.env.json'
+      process.env.NODE_ENV === 'test' ? '.test.env.json' : '.env.json',
     )
 
     const schemaPath = findUpSync('.env.schema.json')
@@ -60,8 +60,8 @@ export default {
       env
         |> mapKeys((value, key) => key |> constantCase)
         |> mapValues(value =>
-          typeof value === 'object' ? value |> JSON.stringify : value
-        )
+          typeof value === 'object' ? value |> JSON.stringify : value,
+        ),
     )
   },
 }
