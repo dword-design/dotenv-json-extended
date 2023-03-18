@@ -38,7 +38,7 @@ export default {
       process.env.FOO = 'bar'
       await outputFile(
         '.env.schema.json',
-        { foo: { type: 'string' } } |> JSON.stringify
+        { foo: { type: 'string' } } |> JSON.stringify,
       )
       self.config()
       expect(process.env.FOO).toEqual('bar')
@@ -73,10 +73,12 @@ export default {
             properties: { bar: { type: 'string' } },
             type: 'object',
           },
-        } |> JSON.stringify
+        } |> JSON.stringify,
       )
       expect(self.config).toThrow(
-        new Error('Error at data.foo: Unexpected token o in JSON at position 1')
+        new Error(
+          'Error at data.foo: Unexpected token o in JSON at position 1',
+        ),
       )
     }),
   'existing variable json': () =>
@@ -89,7 +91,7 @@ export default {
             properties: { bar: { type: 'string' } },
             type: 'object',
           },
-        } |> JSON.stringify
+        } |> JSON.stringify,
       )
       self.config()
     }),
@@ -108,7 +110,7 @@ export default {
       process.env.FOO = 'bar'
       await outputFile(
         '.env.schema.json',
-        { foo: { type: 'string' } } |> JSON.stringify
+        { foo: { type: 'string' } } |> JSON.stringify,
       )
       self.config()
       expect(process.env.FOO).toEqual('bar')
@@ -129,7 +131,7 @@ export default {
       process.env.BAR = 'bar'
       await outputFile(
         '.env.schema.json',
-        { foo: { type: 'string' } } |> JSON.stringify
+        { foo: { type: 'string' } } |> JSON.stringify,
       )
       self.config()
       expect(process.env.FOO).toEqual('bar')
@@ -155,7 +157,7 @@ export default {
     withLocalTmpDir(async () => {
       await outputFile(
         '.env.schema.json',
-        { foo: { default: 'bar', type: 'string' } } |> JSON.stringify
+        { foo: { default: 'bar', type: 'string' } } |> JSON.stringify,
       )
       self.config()
       expect(process.env.FOO).toEqual('bar')
@@ -174,17 +176,17 @@ export default {
     withLocalTmpDir(async () => {
       await outputFile('.env.json', { foo: 'bar' } |> JSON.stringify)
       expect(self.config).toThrow(
-        'dotenv: data must NOT have additional properties'
+        'dotenv: data must NOT have additional properties',
       )
     }),
   'schema: missing variable': () =>
     withLocalTmpDir(async () => {
       await outputFile(
         '.env.schema.json',
-        { foo: { type: 'string' } } |> JSON.stringify
+        { foo: { type: 'string' } } |> JSON.stringify,
       )
       expect(self.config).toThrow(
-        "dotenv: data must have required property 'foo'"
+        "dotenv: data must have required property 'foo'",
       )
     }),
   'schema: wrong type': () =>
@@ -213,7 +215,7 @@ export default {
         '.env.schema.json': { foo: { type: 'string' } } |> JSON.stringify,
       })
       expect(self.config).toThrow(
-        "dotenv: data must have required property 'foo'"
+        "dotenv: data must have required property 'foo'",
       )
     }),
   valid: () =>
