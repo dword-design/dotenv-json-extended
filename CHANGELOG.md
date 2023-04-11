@@ -1,3 +1,10 @@
+## [2.0.21](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.20...v2.0.21) (2023-04-11)
+
+
+### Bug Fixes
+
+* update dependency output-files to v2.0.26 ([8f53a33](https://github.com/dword-design/dotenv-json-extended/commit/8f53a33d1568415f84887126e6c474471d3b7e5f))
+
 ## [2.0.20](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.19...v2.0.20) (2023-04-11)
 
 
