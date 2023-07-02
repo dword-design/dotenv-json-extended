@@ -8781,9 +8781,9 @@ os-tmpdir@~1.0.2:
   integrity sha512-D2FR03Vir7FIu45XBY20mTb+/ZSWB00sjU9jdQXt83gDrI4Ztz5Fs7/yy74g2N5SVQY4xY1qDr4rNddwYRVX0g==
 
 output-files@^2.0.0:
-  version "2.0.29"
-  resolved "https://registry.yarnpkg.com/output-files/-/output-files-2.0.29.tgz#01f44c72e00f4291a8c5ac9b21086635bf630d2d"
-  integrity sha512-gv9R0u3aMUh/PpnKge12an22PXRyG4tO481uGpx4vn93BHQ5oHfwxqORhGs2gZjE9LmX1VUjoPQPdQpBBUf58A==
+  version "2.0.30"
+  resolved "https://registry.yarnpkg.com/output-files/-/output-files-2.0.30.tgz#5b85050fed98e2edbbb87d00e5fbf13dc0223677"
+  integrity sha512-1w+zylig+lkgRqn4cRD8ZFCrfDh0uHsvtQ1Lrz/c1hA98fYa3/C2htsrsEARJNDTIp2B13HZkUiFMtv+3biWUQ==
   dependencies:
     "@dword-design/functions" "^4.0.0"
     fs-extra "^11.1.0"
