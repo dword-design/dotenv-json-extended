@@ -23,7 +23,7 @@
     "test": "base test"
   },
   "dependencies": {
-    "@dword-design/functions": "^4.0.0",
+    "@dword-design/functions": "^6.0.0",
     "ajv": "^8.0.0",
     "constant-case": "^3.0.3",
     "find-up": "^6.3.0",
