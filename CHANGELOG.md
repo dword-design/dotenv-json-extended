@@ -1,3 +1,45 @@
+## [2.0.25](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.24...v2.0.25) (2023-07-06)
+
+
+### Bug Fixes
+
+* update dependency output-files to v2.0.31 ([b23633a](https://github.com/dword-design/dotenv-json-extended/commit/b23633ab45fe5fc2a305b52e12c85d73d0943ef5))
+
+## [2.0.24](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.23...v2.0.24) (2023-07-02)
+
+
+### Bug Fixes
+
+* update dependency output-files to v2.0.30 ([f5286e3](https://github.com/dword-design/dotenv-json-extended/commit/f5286e34c11cdd5f394bb8f021148e2e258ae2fe))
+
+## [2.0.23](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.22...v2.0.23) (2023-06-19)
+
+
+### Bug Fixes
+
+* update dependency output-files to v2.0.29 ([398874f](https://github.com/dword-design/dotenv-json-extended/commit/398874f8335e299ed5ff626a40ce29b4e1213960))
+
+## [2.0.22](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.21...v2.0.22) (2023-05-13)
+
+
+### Bug Fixes
+
+* update dependency output-files to v2.0.28 ([79d3f98](https://github.com/dword-design/dotenv-json-extended/commit/79d3f98e056d8ed9908f2f9249ac069714e3d55e))
+
+## [2.0.21](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.20...v2.0.21) (2023-04-11)
+
+
+### Bug Fixes
+
+* update dependency output-files to v2.0.26 ([8f53a33](https://github.com/dword-design/dotenv-json-extended/commit/8f53a33d1568415f84887126e6c474471d3b7e5f))
+
+## [2.0.20](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.19...v2.0.20) (2023-04-11)
+
+
+### Bug Fixes
+
+* update dependency output-files to v2.0.25 ([61f56ac](https://github.com/dword-design/dotenv-json-extended/commit/61f56ac7fddf28eaf0b76cb50e252789a0304365))
+
 ## [2.0.19](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.18...v2.0.19) (2023-04-10)
 
 
