@@ -6,409 +6,407 @@ import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
 
-test.describe('config', () => {
-  test('empty', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+test('empty', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-    await fs.outputFile(
-      pathLib.join(cwd, 'cli.js'),
-      dedent`
+  await fs.outputFile(
+    pathLib.join(cwd, 'cli.js'),
+    dedent`
+    import self from '../../src/index.js';
+
+    self.config();
+  `,
+  );
+
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
+
+test('execute twice', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
+
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: [1] }),
+    '.env.schema.json': JSON.stringify({ foo: { type: 'array' } }),
+    'cli.js': dedent`
       import self from '../../src/index.js';
 
       self.config();
+      self.config();
     `,
-    );
-
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
   });
 
-  test('execute twice', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: [1] }),
-      '.env.schema.json': JSON.stringify({ foo: { type: 'array' } }),
-      'cli.js': dedent`
-        import self from '../../src/index.js';
+test('existing variable', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        self.config();
-        self.config();
-      `,
-    });
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      import self from '../../src/index.js';
+
+      process.env.FOO = 'bar';
+
+      self.config();
+
+      expect(process.env.FOO).toEqual('bar');
+    `,
   });
 
-  test('existing variable', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('existing variable in test', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import self from '../../src/index.js';
 
-        process.env.FOO = 'bar';
+      process.env.TEST_FOO = 'bar'
 
-        self.config();
-
-        expect(process.env.FOO).toEqual('bar');
-      `,
-    });
-
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      self.config();
+    `,
   });
 
-  test('existing variable in test', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: 'test' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import self from '../../src/index.js';
+test('existing variable in test env with .test.env.json', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        process.env.TEST_FOO = 'bar'
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    '.test.env.json': JSON.stringify({ foo: 'bar2' }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        self.config();
-      `,
-    });
+      import self from '../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: 'test' } });
+      process.env.TEST_FOO = 'bar'
+
+      self.config();
+
+      expect(process.env.FOO).toEqual('bar2')
+    `,
   });
 
-  test('existing variable in test env with .test.env.json', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: 'test' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      '.test.env.json': JSON.stringify({ foo: 'bar2' }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('existing variable invalid json', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({
+      foo: { properties: { bar: { type: 'string' } }, type: 'object' },
+    }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        process.env.TEST_FOO = 'bar'
+      import self from '../../src/index.js';
 
-        self.config();
+      process.env.FOO = 'foo';
 
-        expect(process.env.FOO).toEqual('bar2')
-      `,
-    });
-
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: 'test' } });
+      expect(self.config).toThrow(
+        new Error(
+          "Error at data.foo: Unexpected token 'o', \"foo\" is not valid JSON",
+        ),
+      );
+    `,
   });
 
-  test('existing variable invalid json', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({
-        foo: { properties: { bar: { type: 'string' } }, type: 'object' },
-      }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('existing variable json', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({
+      foo: { properties: { bar: { type: 'string' } }, type: 'object' },
+    }),
+    'cli.js': dedent`
+      import self from '../../src/index.js';
 
-        process.env.FOO = 'foo';
+      process.env.FOO = JSON.stringify({ foo: 'bar' });
 
-        expect(self.config).toThrow(
-          new Error(
-            "Error at data.foo: Unexpected token 'o', \"foo\" is not valid JSON",
-          ),
-        );
-      `,
-    });
-
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      self.config();
+    `,
   });
 
-  test('existing variable json', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({
-        foo: { properties: { bar: { type: 'string' } }, type: 'object' },
-      }),
-      'cli.js': dedent`
-        import self from '../../src/index.js';
+test('existing variable with .env.json', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        process.env.FOO = JSON.stringify({ foo: 'bar' });
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: 'baz' }),
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        self.config();
-      `,
-    });
+      import self from '../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      process.env.FOO = 'bar';
+
+      self.config();
+
+      expect(process.env.FOO).toEqual('baz');
+    `,
   });
 
-  test('existing variable with .env.json', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: 'baz' }),
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('existing variable without .env.json', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        process.env.FOO = 'bar';
+      import self from '../../src/index.js';
 
-        self.config();
+      process.env.FOO = 'bar';
 
-        expect(process.env.FOO).toEqual('baz');
-      `,
-    });
+      self.config();
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      expect(process.env.FOO).toEqual('bar');
+    `,
   });
 
-  test('existing variable without .env.json', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('inner json', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: { bar: 'baz' } }),
+    '.env.schema.json': JSON.stringify({ foo: { type: 'object' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        process.env.FOO = 'bar';
+      import self from '../../src/index.js';
 
-        self.config();
+      self.config();
 
-        expect(process.env.FOO).toEqual('bar');
-      `,
-    });
-
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      expect(typeof process.env.FOO).toEqual('string');
+      expect(JSON.parse(process.env.FOO)).toEqual({ bar: 'baz' });
+    `,
   });
 
-  test('inner json', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: { bar: 'baz' } }),
-      '.env.schema.json': JSON.stringify({ foo: { type: 'object' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('other existing variable', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        self.config();
+      import self from '../../src/index.js';
 
-        expect(typeof process.env.FOO).toEqual('string');
-        expect(JSON.parse(process.env.FOO)).toEqual({ bar: 'baz' });
-      `,
-    });
-
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      process.env.FOO = 'bar';
+      process.env.BAR = 'bar';
+      
+      self.config();
+      expect(process.env.FOO).toEqual('bar');
+    `,
   });
 
-  test('other existing variable', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('parent folder', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: 'test' }),
+    '.env.schema.json': JSON.stringify({
+      bar: { default: 'test2', type: 'string' },
+      foo: { type: 'string' },
+    }),
+    'inner/cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        process.env.FOO = 'bar';
-        process.env.BAR = 'bar';
-        
-        self.config();
-        expect(process.env.FOO).toEqual('bar');
-      `,
-    });
+      import self from '../../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      self.config();
+
+      expect(process.env.FOO).toEqual('test');
+      expect(process.env.BAR).toEqual('test2');
+    `,
   });
 
-  test('parent folder', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', {
+    cwd: pathLib.join(cwd, 'inner'),
+    env: { NODE_ENV: '' },
+  });
+});
 
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: 'test' }),
-      '.env.schema.json': JSON.stringify({
-        bar: { default: 'test2', type: 'string' },
-        foo: { type: 'string' },
-      }),
-      'inner/cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('schema: defaults', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({
+      foo: { default: 'bar', type: 'string' },
+    }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        self.config();
+      import self from '../../src/index.js';
 
-        expect(process.env.FOO).toEqual('test');
-        expect(process.env.BAR).toEqual('test2');
-      `,
-    });
-
-    await execaCommand('node cli.js', {
-      cwd: pathLib.join(cwd, 'inner'),
-      env: { NODE_ENV: '' },
-    });
+      self.config();
+      expect(process.env.FOO).toEqual('bar');
+    `,
   });
 
-  test('schema: defaults', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({
-        foo: { default: 'bar', type: 'string' },
-      }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('schema: defaults overwritten', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: 'baz' }),
+    '.env.schema.json': JSON.stringify({
+      foo: { default: 'bar', type: 'string' },
+    }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        self.config();
-        expect(process.env.FOO).toEqual('bar');
-      `,
-    });
+      import self from '../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      self.config();
+      expect(process.env.FOO).toEqual('baz');
+    `,
   });
 
-  test('schema: defaults overwritten', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: 'baz' }),
-      '.env.schema.json': JSON.stringify({
-        foo: { default: 'bar', type: 'string' },
-      }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('schema: extra variable', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: 'bar' }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        self.config();
-        expect(process.env.FOO).toEqual('baz');
-      `,
-    });
+      import self from '../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      expect(self.config).toThrow(
+        'dotenv: data must NOT have additional properties',
+      );
+    `,
   });
 
-  test('schema: extra variable', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: 'bar' }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('schema: missing variable', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        expect(self.config).toThrow(
-          'dotenv: data must NOT have additional properties',
-        );
-      `,
-    });
+      import self from '../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      expect(self.config).toThrow(
+        "dotenv: data must have required property 'foo'",
+      );
+    `,
   });
 
-  test('schema: missing variable', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('schema: wrong type', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: 1 }),
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        expect(self.config).toThrow(
-          "dotenv: data must have required property 'foo'",
-        );
-      `,
-    });
+      import self from '../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      expect(self.config).toThrow('dotenv: data/foo must be string');
+    `,
   });
 
-  test('schema: wrong type', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: 1 }),
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('env', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    '.test.env.json': JSON.stringify({ foo: 'bar' }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        expect(self.config).toThrow('dotenv: data/foo must be string');
-      `,
-    });
+      import self from '../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+      self.config();
+
+      expect(process.env.FOO).toEqual('bar');
+    `,
   });
 
-  test('env', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: 'test' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      '.test.env.json': JSON.stringify({ foo: 'bar' }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('env and .env.json', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: 'bar' }),
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        self.config();
+      import self from '../../src/index.js';
 
-        expect(process.env.FOO).toEqual('bar');
-      `,
-    });
-
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: 'test' } });
+      expect(self.config).toThrow(
+        "dotenv: data must have required property 'foo'",
+      );
+    `,
   });
 
-  test('env and .env.json', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: 'test' } });
+});
 
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: 'bar' }),
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
+test('valid', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
 
-        import self from '../../src/index.js';
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: 'bar' }),
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
 
-        expect(self.config).toThrow(
-          "dotenv: data must have required property 'foo'",
-        );
-      `,
-    });
+      import self from '../../src/index.js';
 
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: 'test' } });
+      self.config();
+
+      expect(process.env.FOO).toEqual('bar');
+    `,
   });
 
-  test('valid', async ({}, testInfo) => {
-    const cwd = testInfo.outputPath('');
-
-    await outputFiles(cwd, {
-      '.env.json': JSON.stringify({ foo: 'bar' }),
-      '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
-      'cli.js': dedent`
-        import { expect } from '@playwright/test';
-
-        import self from '../../src/index.js';
-
-        self.config();
-
-        expect(process.env.FOO).toEqual('bar');
-      `,
-    });
-
-    await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
-  });
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
 });
