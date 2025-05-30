@@ -1,16 +1,26 @@
-export default type => string => {
+export default (string, type) => {
   if (string === undefined) {
-    return string
+    return string;
   }
+
   switch (type) {
-    case 'object':
-      return string |> JSON.parse
+    case 'object': {
+      return JSON.parse(string);
+    }
+
     case 'number':
-    case 'integer':
-      return string |> parseFloat
-    case 'boolean':
-      return string === 'true'
-    default:
-      return string
+    // Fall through
+
+    case 'integer': {
+      return Number.parseFloat(string);
+    }
+
+    case 'boolean': {
+      return string === 'true';
+    }
+
+    default: {
+      return string;
+    }
   }
-}
+};

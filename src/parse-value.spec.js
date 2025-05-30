@@ -1,13 +1,14 @@
-import self from './parse-value.js'
+import { expect, test } from '@playwright/test';
 
-export default {
-  works: () => {
-    expect({ foo: 'bar' } |> JSON.stringify |> self('object')).toEqual({
-      foo: 'bar',
-    })
-    expect(42 |> self('number')).toEqual(42)
-    expect(42.5 |> self('integer')).toEqual(42.5)
-    expect('true' |> self('boolean')).toBeTruthy()
-    expect('false' |> self('boolean')).toBeFalsy()
-  },
-}
+import self from './parse-value.js';
+
+test('works', () => {
+  expect(self(JSON.stringify({ foo: 'bar' }), 'object')).toEqual({
+    foo: 'bar',
+  });
+
+  expect(self(42, 'number')).toEqual(42);
+  expect(self(42.5, 'integer')).toEqual(42.5);
+  expect(self('true', 'boolean')).toBeTruthy();
+  expect(self('false', 'boolean')).toBeFalsy();
+});
