@@ -58,4 +58,7 @@ const parse = ({ cwd = '.' } = {}) => {
   );
 };
 
-export default { config: ({ cwd = '.' } = {}) => Object.assign(process.env, parse({ cwd })), parse };
+export default {
+  config: ({ cwd = '.' } = {}) => Object.assign(process.env, parse({ cwd })),
+  parse,
+};
