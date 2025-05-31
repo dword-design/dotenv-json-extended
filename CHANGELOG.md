@@ -1,3 +1,20 @@
+# [3.0.0](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.25...v3.0.0) (2025-05-31)
+
+
+### Bug Fixes
+
+* foo ([be8d9c6](https://github.com/dword-design/dotenv-json-extended/commit/be8d9c6080100e8f275540e4a88cc90e6148d36b))
+* foo ([b78b69f](https://github.com/dword-design/dotenv-json-extended/commit/b78b69f7dbb753ef91c3bf1282e67490bd2d95da))
+* foo ([e39de6d](https://github.com/dword-design/dotenv-json-extended/commit/e39de6d046ed48fbd59098c4e6ff188c6fad7c3e))
+* foo ([86bbd04](https://github.com/dword-design/dotenv-json-extended/commit/86bbd0438e9cdb728dd9ac73731aaa55fd56a681))
+* lock file maintenance ([#105](https://github.com/dword-design/dotenv-json-extended/issues/105)) ([65e66f6](https://github.com/dword-design/dotenv-json-extended/commit/65e66f62667ae8b0105a80af6fdea57d02b3ced5))
+* update dependency output-files to v2.0.32 ([034a467](https://github.com/dword-design/dotenv-json-extended/commit/034a467e0d4ccd36a42e209579804134e7debbe6))
+
+
+### BREAKING CHANGES
+
+* node.js >= 18
+
 ## [2.0.25](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.24...v2.0.25) (2023-07-06)
 
 
