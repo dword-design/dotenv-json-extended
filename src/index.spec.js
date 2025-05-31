@@ -5,7 +5,7 @@ import dedent from 'dedent';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
-import nodeVersion from 'node-version':
+import nodeVersion from 'node-version';
 
 test('empty', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
