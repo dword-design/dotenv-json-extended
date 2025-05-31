@@ -7,11 +7,12 @@ import parseValue from './parse-value.js';
 
 const ajv = new Ajv({ useDefaults: true });
 
-const parse = () => {
-  const schemaPath = findUpSync('.env.schema.json');
+const parse = ({ cwd = '.' } = {}) => {
+  const schemaPath = findUpSync('.env.schema.json', { cwd });
 
   const filePath = findUpSync(
     process.env.NODE_ENV === 'test' ? '.test.env.json' : '.env.json',
+    { cwd },
   );
 
   const fromFile = filePath ? fs.readJsonSync(filePath) : {};
@@ -57,4 +58,4 @@ const parse = () => {
   );
 };
 
-export default { config: () => Object.assign(process.env, parse()), parse };
+export default { config: ({ cwd = '.' } = {}) => Object.assign(process.env, parse({ cwd })), parse };
