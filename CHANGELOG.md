@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/dword-design/dotenv-json-extended/compare/v3.0.0...v3.0.1) (2025-05-31)
+
+
+### Bug Fixes
+
+* foo ([53771bb](https://github.com/dword-design/dotenv-json-extended/commit/53771bbc580e08f82a1a8357271adcaabf77e58a))
+
 # [3.0.0](https://github.com/dword-design/dotenv-json-extended/compare/v2.0.25...v3.0.0) (2025-05-31)
 
 
