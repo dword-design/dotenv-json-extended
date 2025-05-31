@@ -114,7 +114,7 @@ test('existing variable invalid json', async ({}, testInfo) => {
 
       expect(self.config).toThrow(
         new Error(
-          "Error at data.foo: Unexpected token 'o', \"foo\" is not valid JSON",
+          'Error at data.foo: Unexpected token o in JSON at position 1',
         ),
       );
     `,
