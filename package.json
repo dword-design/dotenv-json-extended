@@ -26,8 +26,7 @@
     "ajv": "^8.17.1",
     "change-case": "^5.4.4",
     "find-up": "^7.0.0",
-    "fs-extra": "^11.3.0",
-    "lodash-es": "^4.17.21"
+    "fs-extra": "^11.3.0"
   },
   "devDependencies": {
     "@dword-design/base": "^12.0.19",

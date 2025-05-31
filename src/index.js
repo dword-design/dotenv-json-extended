@@ -2,7 +2,6 @@ import Ajv from 'ajv';
 import { constantCase } from 'change-case';
 import { findUpSync } from 'find-up';
 import fs from 'fs-extra';
-import { keys } from 'lodash-es';
 
 import parseValue from './parse-value.js';
 
@@ -40,7 +39,7 @@ const parse = () => {
   const schema = {
     additionalProperties: false,
     properties,
-    required: keys(properties),
+    required: Object.keys(properties),
     type: 'object',
   };
 
