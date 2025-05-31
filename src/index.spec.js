@@ -5,6 +5,7 @@ import dedent from 'dedent';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
+import nodeVersion from 'node-version':
 
 test('empty', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
@@ -114,7 +115,7 @@ test('existing variable invalid json', async ({}, testInfo) => {
 
       expect(self.config).toThrow(
         new Error(
-          'Error at data.foo: Unexpected token o in JSON at position 1',
+          nodeVersion.major <= 18 ? 'Error at data.foo: Unexpected token o in JSON at position 1' : "Error at data.foo: Unexpected token 'o', \"foo\" is not valid JSON",
         ),
       );
     `,
