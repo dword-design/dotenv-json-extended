@@ -2,10 +2,10 @@ import pathLib from 'node:path';
 
 import { test } from '@playwright/test';
 import dedent from 'dedent';
+import packageName from 'depcheck-package-name';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
 import outputFiles from 'output-files';
-import nodeVersion from 'node-version';
 
 test('empty', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
@@ -108,6 +108,7 @@ test('existing variable invalid json', async ({}, testInfo) => {
     }),
     'cli.js': dedent`
       import { expect } from '@playwright/test';
+      import nodeVersion from '${packageName`node-version`}';
 
       import self from '../../src/index.js';
 
@@ -115,7 +116,7 @@ test('existing variable invalid json', async ({}, testInfo) => {
 
       expect(self.config).toThrow(
         new Error(
-          nodeVersion.major <= 18 ? 'Error at data.foo: Unexpected token o in JSON at position 1' : "Error at data.foo: Unexpected token 'o', \"foo\" is not valid JSON",
+          parseInt(nodeVersion.major) <= 18 ? 'Error at data.foo: Unexpected token o in JSON at position 1' : "Error at data.foo: Unexpected token 'o', \"foo\" is not valid JSON",
         ),
       );
     `,

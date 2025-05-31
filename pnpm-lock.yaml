@@ -20,9 +20,6 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
-      node-version:
-        specifier: ^3.0.0
-        version: 3.0.0
     devDependencies:
       '@dword-design/base':
         specifier: ^12.0.19
@@ -33,9 +30,15 @@ importers:
       dedent:
         specifier: ^1.6.0
         version: 1.6.0(babel-plugin-macros@3.1.0)
+      depcheck-package-name:
+        specifier: ^3.0.1
+        version: 3.0.1
       execa:
         specifier: ^9.6.0
         version: 9.6.0
+      node-version:
+        specifier: ^3.0.0
+        version: 3.0.0
       output-files:
         specifier: ^2.0.32
         version: 2.0.32
