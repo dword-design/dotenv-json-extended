@@ -7,8 +7,10 @@ test('works', () => {
     foo: 'bar',
   });
 
-  expect(self(42, 'number')).toEqual(42);
-  expect(self(42.5, 'integer')).toEqual(42.5);
+  expect(self('42', 'number')).toEqual(42);
+  expect(self('42.5', 'integer')).toEqual(42.5);
   expect(self('true', 'boolean')).toBeTruthy();
   expect(self('false', 'boolean')).toBeFalsy();
+  expect(self('', 'integer')).toBeUndefined();
+  expect(self('foo')).toEqual('foo');
 });

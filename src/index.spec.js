@@ -412,3 +412,43 @@ test('valid', async ({}, testInfo) => {
 
   await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
 });
+
+test('empty string for number', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
+
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({
+      foo: { default: 3000, type: 'number' },
+    }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
+
+      import self from '../../src/index.js';
+
+      process.env.FOO = '';
+
+      self.config();
+
+      expect(process.env.FOO).toEqual('3000');
+    `,
+  });
+
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
+
+test('no type', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
+
+  await outputFiles(cwd, {
+    '.env.schema.json': JSON.stringify({ foo: {} }),
+    'cli.js': dedent`
+      import { expect } from '@playwright/test';
+
+      import self from '../../src/index.js';
+
+      expect(self.config).toThrow("dotenv: data must have required property 'foo'");
+    `,
+  });
+
+  await execaCommand('node cli.js', { cwd, env: { NODE_ENV: '' } });
+});
