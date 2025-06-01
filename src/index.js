@@ -2,6 +2,7 @@ import Ajv from 'ajv';
 import { constantCase } from 'change-case';
 import { findUpSync } from 'find-up';
 import fs from 'fs-extra';
+import mapObj from 'map-obj';
 
 import parseValue from './parse-value.js';
 
@@ -18,22 +19,20 @@ const parse = ({ cwd = '.' } = {}) => {
   const fromFile = filePath ? fs.readJsonSync(filePath) : {};
   const properties = schemaPath ? fs.readJsonSync(schemaPath) : {};
 
-  const fromEnv = Object.fromEntries(
-    Object.entries(properties).map(([name, property]) => {
-      const nodeEnvPrefix = process.env.NODE_ENV === 'test' ? 'TEST_' : '';
-      const envVariableName = `${nodeEnvPrefix}${constantCase(name)}`;
-      const valueString = process.env[envVariableName];
-      let value;
+  const fromEnv = mapObj(properties, (name, property) => {
+    const nodeEnvPrefix = process.env.NODE_ENV === 'test' ? 'TEST_' : '';
+    const envVariableName = `${nodeEnvPrefix}${constantCase(name)}`;
+    const valueString = process.env[envVariableName];
+    let value;
 
-      try {
-        value = parseValue(valueString, property.type);
-      } catch (error) {
-        throw new Error(`Error at data.${name}: ${error.message}`);
-      }
+    try {
+      value = parseValue(valueString, property.type);
+    } catch (error) {
+      throw new Error(`Error at data.${name}: ${error.message}`);
+    }
 
-      return [name, value];
-    }),
-  );
+    return [name, value];
+  });
 
   const fromAll = { ...fromEnv, ...fromFile };
 
@@ -50,12 +49,10 @@ const parse = ({ cwd = '.' } = {}) => {
     throw new Error(`dotenv: ${ajv.errorsText()}`);
   }
 
-  return Object.fromEntries(
-    Object.entries(fromAll).map(([name, value]) => [
-      constantCase(name),
-      typeof value === 'object' ? JSON.stringify(value) : value,
-    ]),
-  );
+  return mapObj(fromAll, (name, value) => [
+    constantCase(name),
+    typeof value === 'object' ? JSON.stringify(value) : value,
+  ]);
 };
 
 export default {
