@@ -1,4 +1,4 @@
-export default (string, type) => {
+export default (string: string, type?: string) => {
   if (type === undefined) {
     return string;
   }

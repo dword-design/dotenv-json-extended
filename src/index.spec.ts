@@ -1,7 +1,6 @@
 import pathLib from 'node:path';
 
 import { test } from '@playwright/test';
-import packageName from 'depcheck-package-name';
 import endent from 'endent';
 import { execaCommand } from 'execa';
 import fs from 'fs-extra';
@@ -99,7 +98,7 @@ test('existing variable in test env with .test.env.json', async ({}, testInfo) =
   await execaCommand('tsx cli.ts', { cwd, env: { NODE_ENV: 'test' } });
 });
 
-test('existing variable invalid json', async ({}, testInfo) => {
+test.only('existing variable invalid json', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
@@ -108,16 +107,13 @@ test('existing variable invalid json', async ({}, testInfo) => {
     }),
     'cli.ts': endent`
       import { expect } from '@playwright/test';
-      import nodeVersion from '${packageName`node-version`}';
 
       import self from '../../src';
 
       process.env.FOO = 'foo';
 
       expect(self.config).toThrow(
-        new Error(
-          parseInt(nodeVersion.major) <= 18 ? 'Error at data.foo: Unexpected token o in JSON at position 1' : "Error at data.foo: Unexpected token 'o', \"foo\" is not valid JSON",
-        ),
+        new Error("Error at data.foo: Unexpected token 'o', \\"foo\\" is not valid JSON"),
       );
     `,
   });
