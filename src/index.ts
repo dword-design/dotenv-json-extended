@@ -4,8 +4,18 @@ import { findUpSync } from 'find-up';
 import fs from 'fs-extra';
 import mapObj from 'map-obj';
 
-import parseValue from './parse-value.js';
+import parseValue from './parse-value';
 
+// TODO: Should be exported from ajv
+interface JsonSchemaProperty {
+  type?: string;
+  default?: unknown;
+  enum?: unknown[];
+  format?: string;
+  minimum?: number;
+  maximum?: number;
+  [key: string]: unknown;
+}
 const ajv = new Ajv({ useDefaults: true });
 
 const parse = ({ cwd = '.' } = {}) => {
@@ -16,13 +26,16 @@ const parse = ({ cwd = '.' } = {}) => {
     { cwd },
   );
 
-  const fromFile = filePath ? fs.readJsonSync(filePath) : {};
-  const properties = schemaPath ? fs.readJsonSync(schemaPath) : {};
+  const fromFile: Record<string, unknown> = filePath
+    ? fs.readJsonSync(filePath)
+    : {};
+
+  const properties: Record<string, JsonSchemaProperty> = schemaPath
+    ? fs.readJsonSync(schemaPath)
+    : {};
 
   const fromEnv = mapObj(properties, (name, property) => {
-    const nodeEnvPrefix = process.env.NODE_ENV === 'test' ? 'TEST_' : '';
-    const envVariableName = `${nodeEnvPrefix}${constantCase(name)}`;
-    const valueString = process.env[envVariableName];
+    const valueString = process.env[constantCase(name)];
     let value;
 
     try {
@@ -50,7 +63,7 @@ const parse = ({ cwd = '.' } = {}) => {
   }
 
   return mapObj(fromAll, (name, value) => [
-    constantCase(name),
+    constantCase(String(name)),
     typeof value === 'object' ? JSON.stringify(value) : value,
   ]);
 };
