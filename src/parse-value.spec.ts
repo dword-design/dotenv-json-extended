@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-import self from './parse-value.js';
+import self from './parse-value';
 
 test('works', () => {
   expect(self(JSON.stringify({ foo: 'bar' }), 'object')).toEqual({

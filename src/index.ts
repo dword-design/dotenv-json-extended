@@ -4,7 +4,7 @@ import { findUpSync } from 'find-up';
 import fs from 'fs-extra';
 import mapObj from 'map-obj';
 
-import parseValue from './parse-value.js';
+import parseValue from './parse-value';
 
 const ajv = new Ajv({ useDefaults: true });
 
