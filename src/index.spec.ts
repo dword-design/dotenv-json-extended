@@ -67,7 +67,7 @@ test('existing variable in test', async ({}, testInfo) => {
     'cli.ts': endent`
       import self from '../../src';
 
-      process.env.TEST_FOO = 'bar'
+      process.env.FOO = 'bar'
 
       self.config();
     `,
@@ -76,7 +76,7 @@ test('existing variable in test', async ({}, testInfo) => {
   await execaCommand('tsx cli.ts', { cwd, env: { NODE_ENV: 'test' } });
 });
 
-test('existing variable in test env with .test.env.json', async ({}, testInfo) => {
+test('existing variable in env with .test.env.json', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {
@@ -87,7 +87,7 @@ test('existing variable in test env with .test.env.json', async ({}, testInfo) =
 
       import self from '../../src';
 
-      process.env.TEST_FOO = 'bar'
+      process.env.FOO = 'bar'
 
       self.config();
 
@@ -98,7 +98,7 @@ test('existing variable in test env with .test.env.json', async ({}, testInfo) =
   await execaCommand('tsx cli.ts', { cwd, env: { NODE_ENV: 'test' } });
 });
 
-test.only('existing variable invalid json', async ({}, testInfo) => {
+test('existing variable invalid json', async ({}, testInfo) => {
   const cwd = testInfo.outputPath();
 
   await outputFiles(cwd, {

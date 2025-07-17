@@ -35,9 +35,7 @@ const parse = ({ cwd = '.' } = {}) => {
     : {};
 
   const fromEnv = mapObj(properties, (name, property) => {
-    const nodeEnvPrefix = process.env.NODE_ENV === 'test' ? 'TEST_' : '';
-    const envVariableName = `${nodeEnvPrefix}${constantCase(name)}`;
-    const valueString = process.env[envVariableName];
+    const valueString = process.env[constantCase(name)];
     let value;
 
     try {
