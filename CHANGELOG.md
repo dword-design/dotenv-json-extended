@@ -1,3 +1,16 @@
+# [4.0.0](https://github.com/dword-design/dotenv-json-extended/compare/v3.0.3...v4.0.0) (2025-07-17)
+
+
+### Bug Fixes
+
+* lock file maintenance ([#121](https://github.com/dword-design/dotenv-json-extended/issues/121)) ([daec3d6](https://github.com/dword-design/dotenv-json-extended/commit/daec3d631944156cd2243539347f33d1dd5ff940))
+
+
+### BREAKING CHANGES
+
+* drop TEST_ prefix
+* node.js >= 20
+
 ## [3.0.3](https://github.com/dword-design/dotenv-json-extended/compare/v3.0.2...v3.0.3) (2025-06-01)
 
 
