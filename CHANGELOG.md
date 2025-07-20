@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/dword-design/dotenv-json-extended/compare/v4.0.0...v4.0.1) (2025-07-20)
+
+
+### Bug Fixes
+
+* update pnpm to v10.13.1 ([#122](https://github.com/dword-design/dotenv-json-extended/issues/122)) ([57f3bbf](https://github.com/dword-design/dotenv-json-extended/commit/57f3bbfdae038fec1776ff005b4ecab74430561c))
+
 # [4.0.0](https://github.com/dword-design/dotenv-json-extended/compare/v3.0.3...v4.0.0) (2025-07-17)
 
 
