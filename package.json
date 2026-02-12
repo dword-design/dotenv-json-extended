@@ -34,7 +34,7 @@
     "change-case": "^5.4.4",
     "find-up": "^7.0.0",
     "fs-extra": "^11.3.0",
-    "map-obj": "^5.0.2"
+    "map-obj": "^6.0.0"
   },
   "devDependencies": {
     "@dword-design/base": "^14.0.0",
