@@ -41,7 +41,9 @@ const parse = ({ cwd = '.' } = {}) => {
     try {
       value = parseValue(valueString, property.type);
     } catch (error) {
-      throw new Error(`Error at data.${name}: ${error.message}`);
+      throw new Error(
+        `Error at data.${name}: ${error instanceof Error ? error.message : String(error)}`,
+      );
     }
 
     return [name, value];
