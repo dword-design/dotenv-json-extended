@@ -1,3 +1,16 @@
+# [5.0.0](https://github.com/dword-design/dotenv-json-extended/compare/v4.0.1...v5.0.0) (2026-02-14)
+
+
+### Bug Fixes
+
+* trigger release ([de8c804](https://github.com/dword-design/dotenv-json-extended/commit/de8c804934aed638366a6eae57ce98c5b894aeb4))
+* update dependency @dword-design/base to v16 ([#132](https://github.com/dword-design/dotenv-json-extended/issues/132)) ([6d17499](https://github.com/dword-design/dotenv-json-extended/commit/6d174996fa4ab60a08d6587dbba3db83483a04c9))
+
+
+### BREAKING CHANGES
+
+* node.js >= 22
+
 ## [4.0.1](https://github.com/dword-design/dotenv-json-extended/compare/v4.0.0...v4.0.1) (2025-07-20)
 
 
