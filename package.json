@@ -14,6 +14,7 @@
     }
   },
   "main": "dist/index.js",
+  "bin": "./dist/cli.js",
   "files": [
     "dist"
   ],
