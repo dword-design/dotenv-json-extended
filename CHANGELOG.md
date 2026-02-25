@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/dword-design/dotenv-json-extended/compare/v5.1.0...v5.1.1) (2026-02-25)
+
+
+### Bug Fixes
+
+* add bin to package.json ([0f0927c](https://github.com/dword-design/dotenv-json-extended/commit/0f0927c2a61f27c478efa9fa971349460dc916c4))
+
 # [5.1.0](https://github.com/dword-design/dotenv-json-extended/compare/v5.0.0...v5.1.0) (2026-02-25)
 
 
