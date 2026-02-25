@@ -14,12 +14,18 @@ importers:
       change-case:
         specifier: ^5.4.4
         version: 5.4.4
+      execa:
+        specifier: ^9.6.1
+        version: 9.6.1
       find-up:
         specifier: ^8.0.0
         version: 8.0.0
       fs-extra:
         specifier: ^11.3.3
         version: 11.3.3
+      make-cli:
+        specifier: ^6.0.0
+        version: 6.0.0
       map-obj:
         specifier: ^6.0.0
         version: 6.0.0
@@ -36,9 +42,6 @@ importers:
       endent:
         specifier: npm:@dword-design/endent@^1.4.7
         version: '@dword-design/endent@1.4.7'
-      execa:
-        specifier: ^9.6.1
-        version: 9.6.1
       output-files:
         specifier: ^4.0.0
         version: 4.0.0
@@ -2924,6 +2927,10 @@ packages:
   make-cli@4.0.8:
     resolution: {integrity: sha512-h+kzzkOlv7hFf9c4c6MhrFRix+ii1NNFaTyQJbR4aol84hFeepgicTlJLEfkFKGAIjlFbfNM1pL3iWK1aIRtRQ==}
     engines: {node: '>=18'}
+
+  make-cli@6.0.0:
+    resolution: {integrity: sha512-0CpokgXre8GhJiAxfH+MZTcOZPqmdn+ezHXwqyVhMDhQkCR6FrNX7yIEwnMi+dDf+rC6DYoan6fHEMHabMjGsA==}
+    engines: {node: '>=22'}
 
   make-dir@4.0.0:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
@@ -7593,6 +7600,13 @@ snapshots:
     dependencies:
       '@dword-design/defu': 1.0.3
       commander: 12.1.0
+      lodash-es: 4.17.23
+      p-is-promise: 4.0.0
+
+  make-cli@6.0.0:
+    dependencies:
+      '@dword-design/defu': 1.0.3
+      commander: 14.0.3
       lodash-es: 4.17.23
       p-is-promise: 4.0.0
 
