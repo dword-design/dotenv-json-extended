@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/dword-design/dotenv-json-extended/compare/v5.0.0...v5.1.0) (2026-02-25)
+
+
+### Features
+
+* cli ([6c1efbd](https://github.com/dword-design/dotenv-json-extended/commit/6c1efbd77790ac5bdeb3b4e0a4ecd328fb70a122))
+
 # [5.0.0](https://github.com/dword-design/dotenv-json-extended/compare/v4.0.1...v5.0.0) (2026-02-14)
 
 
