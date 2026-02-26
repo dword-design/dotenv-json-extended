@@ -1,3 +1,10 @@
+## [5.2.1](https://github.com/dword-design/dotenv-json-extended/compare/v5.2.0...v5.2.1) (2026-02-26)
+
+
+### Bug Fixes
+
+* fix cli if no args are passed ([96f9e21](https://github.com/dword-design/dotenv-json-extended/commit/96f9e2161bfef3cf3152e78c1c541fe823fdcd2c))
+
 # [5.2.0](https://github.com/dword-design/dotenv-json-extended/compare/v5.1.1...v5.2.0) (2026-02-26)
 
 
