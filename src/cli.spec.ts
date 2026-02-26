@@ -18,3 +18,14 @@ test('works', async ({}, testInfo) => {
 
   expect(stdout).toEqual('bar');
 });
+
+test('no args', async ({}, testInfo) => {
+  const cwd = testInfo.outputPath();
+
+  await outputFiles(cwd, {
+    '.env.json': JSON.stringify({ foo: 'bar' }),
+    '.env.schema.json': JSON.stringify({ foo: { type: 'string' } }),
+  });
+
+  await execaCommand('tsx ../../src/cli.ts', { cwd, env: { NODE_ENV: '' } });
+});
