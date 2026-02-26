@@ -13,4 +13,5 @@ test('works', () => {
   expect(self('false', 'boolean')).toBeFalsy();
   expect(self('', 'integer')).toBeUndefined();
   expect(self('foo')).toEqual('foo');
+  expect(self('[1]', 'array')).toEqual([1]);
 });
