@@ -1,3 +1,10 @@
+# [5.2.0](https://github.com/dword-design/dotenv-json-extended/compare/v5.1.1...v5.2.0) (2026-02-26)
+
+
+### Features
+
+* array parsing ([4b3fd22](https://github.com/dword-design/dotenv-json-extended/commit/4b3fd22eb6c5fc5b2a175331aaee785fa0f9d6ed))
+
 ## [5.1.1](https://github.com/dword-design/dotenv-json-extended/compare/v5.1.0...v5.1.1) (2026-02-25)
 
 
