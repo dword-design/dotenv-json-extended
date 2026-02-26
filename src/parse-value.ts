@@ -15,7 +15,9 @@ export default (string: string | undefined, type?: string) => {
   }
 
   switch (type) {
-    case 'object': {
+    case 'object':
+
+    case 'array': {
       return JSON.parse(string);
     }
 
