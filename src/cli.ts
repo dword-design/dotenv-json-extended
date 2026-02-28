@@ -5,22 +5,40 @@ import makeCli from 'make-cli';
 
 import api from '.';
 
-try {
-  await makeCli({
-    action: (options, command) => {
-      const envVariables = api.parse();
+await makeCli({
+  action: (options, command) => {
+    const envVariables = api.parse();
 
-      if (command.args.length === 0) {
-        return;
+    if (command.args.length === 0) {
+      return;
+    }
+
+    const child = execa(command.args[0], command.args.slice(1), {
+      env: envVariables,
+      stdio: 'inherit',
+    }).on('exit', (exitCode, signal) => {
+      if (typeof exitCode === 'number') {
+        process.exit(exitCode);
+      } else {
+        process.kill(process.pid, signal || undefined);
       }
+    });
 
-      return execa(command.args[0], command.args.slice(1), {
-        env: envVariables,
-        stdio: 'inherit',
+    for (const signal of [
+      'SIGINT',
+      'SIGTERM',
+      'SIGPIPE',
+      'SIGHUP',
+      'SIGBREAK',
+      'SIGWINCH',
+      'SIGUSR1',
+      'SIGUSR2',
+    ] as const) {
+      process.on(signal, () => {
+        child.kill(signal);
       });
-    },
-  });
-} catch (error) {
-  console.error(error);
-  process.exit(1);
-}
+    }
+
+    return child;
+  },
+});
