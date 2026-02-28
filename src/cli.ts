@@ -15,6 +15,7 @@ await makeCli({
 
     // Source: https://github.com/entropitor/dotenv-cli/blob/master/cli.js#L114
     // Parent and child need to be aligned e.g. for pm2 reloads
+    // Also see https://github.com/dotenvx/dotenvx/blob/main/src/lib/helpers/executeCommand.js
     // TODO: Make the parent-child syncing cleaner
     const child = execa(command.args[0], command.args.slice(1), {
       env: envVariables,
