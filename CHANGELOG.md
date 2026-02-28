@@ -1,3 +1,11 @@
+## [5.2.4](https://github.com/dword-design/dotenv-json-extended/compare/v5.2.3...v5.2.4) (2026-02-28)
+
+
+### Bug Fixes
+
+* doc ([20ded0a](https://github.com/dword-design/dotenv-json-extended/commit/20ded0a0b777435b99de47de4461b6889c9e7a0a))
+* doc ([53aaa3e](https://github.com/dword-design/dotenv-json-extended/commit/53aaa3e3261f260e719398a861eb1987554cf061))
+
 ## [5.2.3](https://github.com/dword-design/dotenv-json-extended/compare/v5.2.2...v5.2.3) (2026-02-28)
 
 
