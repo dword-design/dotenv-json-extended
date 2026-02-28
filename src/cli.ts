@@ -13,6 +13,9 @@ await makeCli({
       return;
     }
 
+    // Source: https://github.com/entropitor/dotenv-cli/blob/master/cli.js#L114
+    // Parent and child need to be aligned e.g. for pm2 reloads
+    // TODO: Make the parent-child syncing cleaner
     const child = execa(command.args[0], command.args.slice(1), {
       env: envVariables,
       stdio: 'inherit',
