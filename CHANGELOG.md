@@ -1,3 +1,10 @@
+## [5.2.2](https://github.com/dword-design/dotenv-json-extended/compare/v5.2.1...v5.2.2) (2026-02-28)
+
+
+### Bug Fixes
+
+* sync child ([4627c6d](https://github.com/dword-design/dotenv-json-extended/commit/4627c6dab2ad79944b1529d4d4488e3abe3e3195))
+
 ## [5.2.1](https://github.com/dword-design/dotenv-json-extended/compare/v5.2.0...v5.2.1) (2026-02-26)
 
 
