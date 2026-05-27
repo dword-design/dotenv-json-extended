@@ -1,3 +1,10 @@
+# [5.3.0](https://github.com/dword-design/dotenv-json-extended/compare/v5.2.4...v5.3.0) (2026-05-27)
+
+
+### Features
+
+* add get command ([b57a8e8](https://github.com/dword-design/dotenv-json-extended/commit/b57a8e8ebb103fdc13be0b5bd7e2267bf2ef50d2))
+
 ## [5.2.4](https://github.com/dword-design/dotenv-json-extended/compare/v5.2.3...v5.2.4) (2026-02-28)
 
 
