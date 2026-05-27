@@ -46,4 +46,10 @@ await makeCli({
 
     return child;
   },
+  commands: {
+    get: () => {
+      const envVariables = api.parse();
+      console.log(JSON.stringify(envVariables));
+    },
+  },
 });
