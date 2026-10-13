@@ -38,7 +38,7 @@
     "find-up": "^8.0.0",
     "fs-extra": "^11.3.3",
     "make-cli": "^6.0.0",
-    "map-obj": "^6.0.0"
+    "map-obj": "^7.0.0"
   },
   "devDependencies": {
     "@dword-design/base": "^16.2.2",

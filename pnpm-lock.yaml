@@ -27,8 +27,8 @@ importers:
         specifier: ^6.0.0
         version: 6.0.2
       map-obj:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^7.0.0
+        version: 7.0.0
     devDependencies:
       '@dword-design/base':
         specifier: ^16.2.2
@@ -2965,6 +2965,10 @@ packages:
   map-obj@6.0.0:
     resolution: {integrity: sha512-PwDvwt/tK70+luLw5k9ySLtzLAzwf7tZTY9GBj63Y010nHRPjwHcQTpTd5JwQqITC2ty7prtxBo71iwyYY0TAg==}
     engines: {node: '>=20'}
+
+  map-obj@7.0.0:
+    resolution: {integrity: sha512-u8zj/RXtq+8FEtGLJlYcFIpSKNk/B3lgv5RtYtLKJ6jcxGRYHoEq2NDRAEOz9EdlRmLod+v4OUfxBvOGlG0XSQ==}
+    engines: {node: '>=22'}
 
   marked-terminal@7.3.0:
     resolution: {integrity: sha512-t4rBvPsHc57uE/2nJOLmMbZCQ4tgAccAED3ngXQqW6g+TxA488JzJ+FK3lQkzBQOI1mRV/r/Kq+1ZlJ4D0owQw==}
@@ -7647,6 +7651,8 @@ snapshots:
   map-obj@4.3.0: {}
 
   map-obj@6.0.0: {}
+
+  map-obj@7.0.0: {}
 
   marked-terminal@7.3.0(marked@15.0.12):
     dependencies:
